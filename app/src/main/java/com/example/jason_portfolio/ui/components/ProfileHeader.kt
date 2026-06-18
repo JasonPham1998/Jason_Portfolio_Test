@@ -1,5 +1,6 @@
 package com.example.jason_portfolio.ui.components
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 
 import androidx.compose.foundation.border
@@ -41,7 +42,7 @@ import com.example.jason_portfolio.ui.screens.ExperienceScreen
 import com.example.jason_portfolio.R
 
 
-
+@SuppressLint("ViewModelConstructorInComposable")
 @Composable
 fun ProfileHeader() {
     var selectedTab by remember {
@@ -86,7 +87,8 @@ fun ProfileHeader() {
 
     Spacer(modifier = Modifier.height(16.dp))
 
-    ContactBar()
+    ContactBar(
+    )
 
     Spacer(modifier = Modifier.height(16.dp))
 

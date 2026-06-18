@@ -1,7 +1,6 @@
 package com.example.jason_portfolio.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
@@ -15,8 +14,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+
+
 @Composable
-fun ContactBar() {
+
+fun ContactBar(viewModel : ContactViewModel = viewModel()) {
+    val dataList by viewModel.uiState.collectAsStateWithLifecycle()
     var showEmail by remember { mutableStateOf(false) }
     var showPhone by remember { mutableStateOf(false) }
     var showLinkedIn by remember { mutableStateOf(false) }
@@ -40,7 +45,7 @@ fun ContactBar() {
                         showEmail = !showEmail
                     })
                 AnimatedVisibility(visible = showEmail) {
-                    Text(text = "baopham1422@gmail.com")}
+                    Text(text = dataList?.email ?: "Loading..." )}
             }
 
             Column {
@@ -51,7 +56,7 @@ fun ContactBar() {
                     )
 
                     AnimatedVisibility(visible = showPhone) {
-                        Text("604-726-9204")
+                        Text(text = dataList?.phone ?: "Loading...")
                     }
                 }
 
@@ -64,7 +69,7 @@ fun ContactBar() {
                     )
 
                     AnimatedVisibility(visible = showLinkedIn) {
-                        Text("https://www.linkedin.com/in/jason-pham-057268229/")
+                        Text(text = dataList?.linkedIn ?: "Loading...")
                     }
                 }
 
@@ -77,7 +82,7 @@ fun ContactBar() {
                     )
 
                     AnimatedVisibility(visible = showGitHub) {
-                        Text("https://github.com/JasonPham1998")
+                        Text(text = dataList?.gitHub ?: "Loading...")
                     }
                 }
     }
