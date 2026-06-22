@@ -1,6 +1,6 @@
 package com.example.jason_portfolio.ui.components
 
-import androidx.compose.animation.AnimatedVisibility
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
@@ -11,23 +11,27 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 @Composable
 
-fun ContactBar(viewModel : ContactViewModel = viewModel()) {
-    val dataList by viewModel.uiState.collectAsStateWithLifecycle()
-    var showEmail by remember { mutableStateOf(false) }
-    var showPhone by remember { mutableStateOf(false) }
-    var showLinkedIn by remember { mutableStateOf(false) }
-    var showGitHub by remember { mutableStateOf(false) }
+fun ContactBar(
+                email: String?,
+                phone: String?,
+                linkedIn: String?,
+                gitHub: String?,
+                onEmailClick: () ->Unit,
+                onPhoneClick: () -> Unit,
+                onLinkedInClick: () -> Unit,
+                onGitHubClick: () -> Unit) {
+
+    var expanded by remember { mutableStateOf<String?>(null)}
+
     Surface(
-        tonalElevation = 5.dp,
+        tonalElevation = 6.dp,
         shape = RoundedCornerShape(20.dp),
         modifier = Modifier.padding(12.dp)
     ) {
@@ -39,52 +43,75 @@ fun ContactBar(viewModel : ContactViewModel = viewModel()) {
             verticalArrangement = Arrangement.spacedBy(12.dp)
         )
         {
-            Column{
-                Text(text="📧 Gmail",
-                    modifier = Modifier.clickable{
-                        showEmail = !showEmail
-                    })
-                AnimatedVisibility(visible = showEmail) {
-                    Text(text = dataList?.email ?: "Loading..." )}
-            }
-
             Column {
-                Text(text="📱 Phone",
-                        modifier = Modifier.clickable {
-                            showPhone = !showPhone
-                        }
-                    )
-
-                    AnimatedVisibility(visible = showPhone) {
-                        Text(text = dataList?.phone ?: "Loading...")
+                Text(
+                    text = "📧 Gmail",
+                    modifier = Modifier.clickable {
+                        expanded = if (expanded == "email") null else "email"
+                        onEmailClick()
                     }
-                }
-
-            Column {
+                )
+                if (expanded == "email") {
                     Text(
-                        text ="💼 LinkedIn",
+                        text = email ?: "No email available",
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+
+                }
+                Column {
+                    Text(
+                        text = "📱 Phone",
                         modifier = Modifier.clickable {
-                            showLinkedIn = !showLinkedIn
+                            expanded = if (expanded == "phone") null else "phone"
+                            onPhoneClick()
                         }
                     )
 
-                    AnimatedVisibility(visible = showLinkedIn) {
-                        Text(text = dataList?.linkedIn ?: "Loading...")
+                    if (expanded == "phone") {
+                        Text(
+                            text = phone ?: "No phone available",
+                            modifier = Modifier.padding(start = 16.dp)
+                        )
                     }
                 }
 
+
+                Column {
+                    Text(
+                        text = "💼 LinkedIn",
+                        modifier = Modifier.clickable {
+                            expanded = if (expanded == "linkedIn") null else "linkedIn"
+                            onLinkedInClick()
+                        }
+                    )
+
+                    if (expanded == "linkedIn") {
+                        Text(
+                            text = linkedIn ?: "No LinkedIn available",
+                            modifier = Modifier.padding(start = 16.dp)
+                        )
+                    }
+                }
                 Column {
                     Text(
                         text = "🐙 GitHub",
                         modifier = Modifier.clickable {
-                            showGitHub = !showGitHub
+                            expanded = if (expanded == "gitHub") null else "gitHub"
+                            onGitHubClick()
                         }
                     )
 
-                    AnimatedVisibility(visible = showGitHub) {
-                        Text(text = dataList?.gitHub ?: "Loading...")
+                    if (expanded == "gitHub") {
+                        Text(
+                            text = gitHub ?: "No GitHub available",
+                            modifier = Modifier.padding(start = 16.dp)
+                        )
                     }
                 }
+            }
+        }
     }
 }
-}
+
+
+
