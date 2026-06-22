@@ -10,6 +10,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 
 class MainViewModel  : ViewModel() {
 
@@ -37,15 +38,16 @@ class MainViewModel  : ViewModel() {
 
             .subscribe({ result ->
 
-                _uiState.value =  _uiState.value.copy(
-                    email = result.email,
-                    phone = result.phone,
-                    linkedIn = result.linkedIn,
-                    gitHub = result.gitHub,
-                    isLoading = false,
-                    error = null,
-                    selectedContact = null
-                )
+                _uiState.update {
+                    it.copy(
+                        email = result.email,
+                        phone = result.phone,
+                        linkedIn = result.linkedIn,
+                        gitHub = result.gitHub,
+                        isLoading = false,
+                        error = null,
+                        selectedContact = null)}
+
 
             }, { error ->
 
@@ -58,16 +60,9 @@ class MainViewModel  : ViewModel() {
         compositeDisposable.add(disposable)
     }
     fun onContactClick(type: String) {
-        val current = _uiState.value
-
-        _uiState.value = current.copy(
-            selectedContact = when (type) {
-                "email" -> current.email
-                "phone" -> current.phone
-                "linkedIn" -> current.linkedIn
-                "github" -> current.gitHub
-                else -> null
-            })
+        _uiState.update {
+            it.copy(selectedContact = type)
+        }
     }
 
 

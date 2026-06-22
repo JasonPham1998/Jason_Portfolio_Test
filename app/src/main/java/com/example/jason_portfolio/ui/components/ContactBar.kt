@@ -23,7 +23,7 @@ fun ContactBar(
                 phone: String?,
                 linkedIn: String?,
                 gitHub: String?,
-                onEmailClick: () -> Unit,
+                onEmailClick: () ->Unit,
                 onPhoneClick: () -> Unit,
                 onLinkedInClick: () -> Unit,
                 onGitHubClick: () -> Unit) {

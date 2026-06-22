@@ -10,10 +10,8 @@ import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.foundation.layout.padding
-
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,9 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.jason_portfolio.navigation.Screen
-import com.example.jason_portfolio.presentation.MainViewModel
+import com.example.jason_portfolio.presentation.MainUiState
 import com.example.jason_portfolio.ui.components.AnimatedWaveBackground
 import com.example.jason_portfolio.ui.components.ProfileHeader
 import com.example.jason_portfolio.ui.screens.education.EducationScreen
@@ -37,13 +34,7 @@ import com.example.jason_portfolio.ui.components.ContactBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(viewModel: MainViewModel) {
-    val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
-
-
-    LaunchedEffect(Unit) {
-        viewModel.loadContact()
-    }
+fun MainScreen(uiState: MainUiState, onContactClick: (String) -> Unit) {
 
     var selectedTab by remember { mutableStateOf(0) }
 
@@ -69,18 +60,10 @@ fun MainScreen(viewModel: MainViewModel) {
                 phone = uiState.phone,
                 linkedIn = uiState.linkedIn,
                 gitHub = uiState.gitHub,
-                onEmailClick = {
-                    viewModel.onContactClick("email")
-                                },
-                onPhoneClick = {
-                    viewModel.onContactClick("phone")
-                               },
-                onLinkedInClick = {
-                    viewModel.onContactClick("linkedIn")
-                },
-                onGitHubClick = {
-                    viewModel.onContactClick("gitHub")
-                }
+                onEmailClick = { onContactClick("email") },
+                onPhoneClick = { onContactClick("phone") },
+                onLinkedInClick = { onContactClick("linkedIn") },
+                onGitHubClick = { onContactClick("gitHub") }
             )
 
 
