@@ -1,4 +1,4 @@
-package com.example.jason_portfolio.ui.test
+package com.example.jason_portfolio.ui.component
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas

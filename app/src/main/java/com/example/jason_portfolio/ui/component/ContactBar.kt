@@ -1,4 +1,4 @@
-package com.example.jason_portfolio.ui.test
+package com.example.jason_portfolio.ui.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*

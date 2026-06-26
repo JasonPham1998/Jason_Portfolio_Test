@@ -1,4 +1,4 @@
-package com.example.jason_portfolio.ui.test
+package com.example.jason_portfolio.ui.component
 
 import com.example.jason_portfolio.data.model.DataInfo
 import com.example.jason_portfolio.data.remote.ApiService
