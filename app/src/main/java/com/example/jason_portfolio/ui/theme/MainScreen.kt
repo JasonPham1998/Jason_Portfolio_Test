@@ -24,13 +24,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jason_portfolio.navigation.Screen
 import com.example.jason_portfolio.presentation.MainUiState
-import com.example.jason_portfolio.ui.components.AnimatedWaveBackground
-import com.example.jason_portfolio.ui.components.ProfileHeader
+import com.example.jason_portfolio.ui.component.AnimatedWaveBackground
+import com.example.jason_portfolio.ui.component.ProfileHeader
 import com.example.jason_portfolio.ui.screens.education.EducationScreen
 import com.example.jason_portfolio.ui.screens.experience.ExperienceScreen
 import com.example.jason_portfolio.ui.screens.home.HomeScreen
 import com.example.jason_portfolio.ui.screens.tech.TechScreen
-import com.example.jason_portfolio.ui.components.ContactBar
+import com.example.jason_portfolio.ui.component.ContactBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

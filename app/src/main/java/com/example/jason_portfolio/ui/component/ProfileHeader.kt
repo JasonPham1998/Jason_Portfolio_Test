@@ -1,4 +1,4 @@
-package com.example.jason_portfolio.ui.components
+package com.example.jason_portfolio.ui.component
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
